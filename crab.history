@@ -1,0 +1,19 @@
+140806_115306: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -create -submit
+140806_115346: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c AOD/
+140806_115415: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -create -submit
+140806_115514: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c AOD/
+140806_115745: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c AOD/
+140806_115757: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -get -c AOD/
+140806_115952: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c AOD/
+140806_120155: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -create -submit
+140806_120250: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c WithVert/
+140806_120326: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c WithVert/
+140806_120410: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c WithVert/
+140806_120516: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c WithVert/
+140806_120622: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c WithVert/
+140806_120634: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -get -c WithVert/
+140806_120650: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c WithVert/
+140806_120708: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c WithVert/
+140806_120721: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -get -c WithVert/
+140806_120728: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -status -c WithVert/
+140806_120740: /uscmst1/prod/grid/CRAB_2_10_6/python/crab.py -publish -c WithVert/
