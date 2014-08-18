@@ -26,9 +26,15 @@
 
 #include "DataFormats/VertexReco/interface/Vertex.h"
 //#include "DataFormats/V0Candidate/interface/V0Candidate.h"
-#include "DataFormats/Candidate/interface/VertexCompositeCandidate.h"
+//#include "DataFormats/Candidate/interface/VertexCompositeCandidate.h"
+#include "DataFormats/Candidate/interface/MyVertexCompositeCandidate.h"
 
 #include "MyAnalysis/Vertex/interface/VertFitter.h"
+
+#include "SimDataFormats/TrackingHit/interface/PSimHitContainer.h"
+#include "FWCore/ServiceRegistry/interface/Service.h"
+#include "CommonTools/UtilAlgos/interface/TFileService.h"
+#include "TH2F.h"
 
 class VertProducer : public edm::EDProducer {
 public:

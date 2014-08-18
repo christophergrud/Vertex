@@ -184,6 +184,12 @@ void VertFitter::fitAll(const edm::Event& iEvent, const edm::EventSetup& iSetup)
         }
       }
     }
+
+    /*std::cout<<"Is Tracker muon = "<< it->isTrackerMuon() <<std::endl;
+    std::cout<<"Is quality okay = "<< quality_ok <<std::endl;
+    std::cout<<"Normalized Chi2 = "<<tmpRef->normalizedChi2()<<std::endl;
+    std::cout<<"Number of Valid Hits = "<<tmpRef->numberOfValidHits()<<std::endl;*/
+
     if( !quality_ok ) continue;
 
 
@@ -193,6 +199,9 @@ void VertFitter::fitAll(const edm::Event& iEvent, const edm::EventSetup& iSetup)
       FreeTrajectoryState initialFTS = trajectoryStateTransform::initialFreeState(*tmpRef, magField);
       TSCBLBuilderNoMaterial blsBuilder;
       TrajectoryStateClosestToBeamLine tscb( blsBuilder(initialFTS, *theBeamSpotHandle) );
+
+      /*std::cout<<"Is tscb Valid = "<< tscb.isValid() << std::endl;
+      std::cout<<"tscb IP sig = "<< tscb.transverseImpactParameter().significance() << std::endl;*/
       
       if( tscb.isValid() ) {
         if( tscb.transverseImpactParameter().significance() > impactParameterSigCut ) {
@@ -334,21 +343,30 @@ void VertFitter::fitAll(const edm::Event& iEvent, const edm::EventSetup& iSetup)
       // to -1 avoids this problem and allows to run on AOD.
       if( innerHitPosCut > 0. && positiveTrackRef->innerOk() ) {
 	      reco::Vertex::Point posTkHitPos = positiveTrackRef->innerPosition();
-	      double posTkHitPosD2 = (posTkHitPos.x()-beamSpotPos.x())*(posTkHitPos.x()-beamSpotPos.x()) + (posTkHitPos.y()-beamSpotPos.y())*(posTkHitPos.y()-beamSpotPos.y());
-	      if( sqrt( posTkHitPosD2 ) < ( rVtxMag - sigmaRvtxMag*innerHitPosCut )) {
+	     // double posTkHitPosD2 = (posTkHitPos.x()-beamSpotPos.x())*(posTkHitPos.x()-beamSpotPos.x()) + (posTkHitPos.y()-beamSpotPos.y())*(posTkHitPos.y()-beamSpotPos.y());
+        double posHitPosRho2 = posTkHitPos.x()*posTkHitPos.x() + posTkHitPos.y()*posTkHitPos.y();
+	    /*  if( sqrt( posHitPosRho2 ) < ( rVtxMag - sigmaRvtxMag*innerHitPosCut )) {
 	        continue;
 	      }
-        if (rVtxMag + 4*sigmaRvtxMag < 4 && sqrt(posTkHitPosD2) >=6) continue; // ***************************************************************
-        if (rVtxMag + 4*sigmaRvtxMag < 7 && sqrt(posTkHitPosD2) >=10) continue; // **************************************************************
+        if (sqrt(posHitPosRho2) < 5 || (sqrt(posHitPosRho2) < 11 && fabs(posTkHitPos.eta()) < (2.9 - (4*sqrt(posHitPosRho2)/35)))){
+          if ( rVtxMag + 4*sigmaRvtxMag < 4.8 && sqrt(posHitPosRho2)>=4.8) continue;
+          if ( rVtxMag + 4*sigmaRvtxMag < 7.7 && sqrt(posHitPosRho2)>=7.7) continue;
+          if ( rVtxMag + 4*sigmaRvtxMag < 10.5 && sqrt(posHitPosRho2)>=10.5) continue;
+        } */
       }
+
       if( innerHitPosCut > 0. && negativeTrackRef->innerOk() ) {
 	      reco::Vertex::Point negTkHitPos = negativeTrackRef->innerPosition();
-	      double negTkHitPosD2 = (negTkHitPos.x()-beamSpotPos.x())*(negTkHitPos.x()-beamSpotPos.x()) + (negTkHitPos.y()-beamSpotPos.y())*(negTkHitPos.y()-beamSpotPos.y());
-	      if( sqrt( negTkHitPosD2 ) < ( rVtxMag - sigmaRvtxMag*innerHitPosCut )) {
+	    //  double negTkHitPosD2 = (negTkHitPos.x()-beamSpotPos.x())*(negTkHitPos.x()-beamSpotPos.x()) + (negTkHitPos.y()-beamSpotPos.y())*(negTkHitPos.y()-beamSpotPos.y());
+        double negHitPosRho2 = negTkHitPos.x()*negTkHitPos.x() + negTkHitPos.y()*negTkHitPos.y();
+	    /*  if( sqrt( negHitPosRho2 ) < ( rVtxMag - sigmaRvtxMag*innerHitPosCut )) {
 	        continue;
 	      }
-        if (rVtxMag + 4*sigmaRvtxMag < 4 && sqrt(negTkHitPosD2) >=6) continue; // ***************************************************************
-        if (rVtxMag + 4*sigmaRvtxMag < 7 && sqrt(negTkHitPosD2) >=10) continue; // **************************************************************
+        if (sqrt(negHitPosRho2) < 5 || (sqrt(negHitPosRho2) < 11 && fabs(negTkHitPos.eta()) < (2.9 - (4*sqrt(negHitPosRho2)/35)))){
+          if ( rVtxMag + 4*sigmaRvtxMag < 4.8 && sqrt(negHitPosRho2)>=4.8) continue;
+          if ( rVtxMag + 4*sigmaRvtxMag < 7.7 && sqrt(negHitPosRho2)>=7.7) continue;
+          if ( rVtxMag + 4*sigmaRvtxMag < 10.5 && sqrt(negHitPosRho2)>=10.5) continue;
+        } */
       }
       
       if( theVtx.normalizedChi2() > chi2Cut || rVtxMag < rVtxCut || rVtxMag / sigmaRvtxMag < vtxSigCut ) {
